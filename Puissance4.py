@@ -35,28 +35,28 @@ gril=[[2,0,0,0,0,0,0],
 assert coup_possible(gril,0)==False
 assert coup_possible(gril,6)==True
 
-def vert(gril, j , lig , col):
+def vert(gril,j,lig,col):
     '''Détermine si il y a un alignement vertical de 4 pions du joueur j à partir de la case (lig, col)'''
     if lig>2 :
         return False
     else : 
         if j==1 : 
-            for i in range(lig,lig+4) :
-                if gril[i][col]!=1 :
+            for i in range(0,4) :
+                if gril[lig+i][col]!=1 :
                     return False
             return True
         if j==2 : 
-            for i in range(lig,lig+4) :
-                if gril[i][col]!=2 :
+            for i in range(0,4) :
+                if gril[lig+i][col]!=2 :
                     return False
             return True
+        
 gril=[[0,0,0,0,0,0,0],
       [0,1,0,0,0,0,1],
       [0,2,0,0,0,0,1],
       [0,2,0,0,0,0,1],
       [0,2,0,0,0,0,1],
       [0,0,0,0,0,0,0]]
-
 assert vert(gril,1,1,6)==True
 assert vert(gril,2,1,1)==False
 
@@ -70,13 +70,13 @@ def horiz(gril,j,lig,col) :
         False
     else :
         if j==1 : 
-            for i in range(col,col+4) :
-                if gril[lig][i]!=1 :
+            for i in range(0,4) :
+                if gril[lig][col+i]!=1 :
                     return False
             return True
         if j==2 : 
-            for i in range(col,col+4) :
-                if gril[lig][i]!=2 :
+            for i in range(0,4) :
+                if gril[lig][col+i]!=2 :
                     return False
             return True
 gril=[[0,0,0,2,2,2,2],
@@ -182,7 +182,7 @@ def coup_aleatoire(gril,j):
     '''
     flag=False
     while flag!=True :
-        col=randint(0,7)
+        col=randint(0,6)
         if coup_possible(gril,col)==True :
             flag=True
             jouer(gril,j,col)
@@ -230,11 +230,35 @@ def affiche(gril):
                 trad.append("0")
         final.append(trad)
         trad=[]
-    return(final)
+    for i in final :
+        print(i)
 gril=[[1,0,0,1,0,0,0],
       [0,0,0,2,0,0,0],
       [0,0,0,1,0,0,0],
       [0,0,0,2,0,0,0],
       [0,0,0,1,0,0,0],
       [0,0,0,2,0,0,0]]
-affiche(gril)
+
+import sys
+typejeu=str(input("2J ou bien 1J  : "))
+if typejeu=="2J" :
+    pass
+if typejeu=="1J" :
+    gril=grille_vide()
+    affiche(gril)
+    while True:
+        if victoire(gril,2)==True :
+            print("Le robot a gagné !")
+            sys.exit()
+        coup=int(input("Joueur 1, dans quelle index de colone jouer : "))
+        while coup_possible(gril,coup)==False :
+            print("Colone pleine !")
+            coup=int(input("Joueur 1, dans quelle index de colone jouer : "))
+        jouer(gril,1,coup)
+        affiche(gril)
+        if victoire(gril,1)==True :
+            print("Le joueur 1 a gagné !")
+            sys.exit()
+        print("Le robot joue.")
+        coup_aleatoire(gril,2)
+        affiche(gril)
