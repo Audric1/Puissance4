@@ -41,12 +41,12 @@ def vert(gril, j , lig , col):
         return False
     else : 
         if j==1 : 
-            for i in range(lig,lig+4) :
+            for i in range(lig,lig+3) :
                 if gril[i][col]!=1 :
                     return False
             return True
         if j==2 : 
-            for i in range(lig,lig+4) :
+            for i in range(lig,lig+3) :
                 if gril[i][col]!=2 :
                     return False
             return True
