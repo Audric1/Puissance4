@@ -166,7 +166,7 @@ def victoire(gril,j) :
                 return True
             if diag_bas(gril,j,y,x)==True :
                 return True
-        return False
+    return False
 gril=[[0,0,0,0,0,1,0],
       [0,0,0,0,1,0,0],
       [0,0,0,1,0,0,0],
