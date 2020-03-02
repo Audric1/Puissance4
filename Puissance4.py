@@ -242,7 +242,27 @@ gril=[[1,0,0,1,0,0,0],
 import sys
 typejeu=str(input("2J ou bien 1J  : "))
 if typejeu=="2J" :
-    pass
+    gril=grille_vide()
+    affiche(gril)
+    while True:
+        if victoire(gril,2)==True :
+            print("Le J2 a gagné !")
+            sys.exit()
+        coup=int(input("Joueur 1, dans quelle index de colone jouer : "))
+        while coup_possible(gril,coup)==False :
+            print("Colone pleine !")
+            coup=int(input("Joueur 1, dans quelle index de colone jouer : "))
+        jouer(gril,1,coup)
+        affiche(gril)
+        if victoire(gril,1)==True :
+            print("Le joueur 1 a gagné !")
+            sys.exit()
+        coup=int(input("Joueur 2, dans quelle index de colone jouer : "))
+        while coup_possible(gril,coup)==False :
+            print("Colone pleine !")
+            coup=int(input("Joueur 2, dans quelle index de colone jouer : "))
+        jouer(gril,2,coup)
+        affiche(gril)
 if typejeu=="1J" :
     gril=grille_vide()
     affiche(gril)
